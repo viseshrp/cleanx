@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><title>Home / X</title>
+<style>
+body{margin:0;background:#fff;color:#14241e;font:15px/1.5 system-ui}main{max-width:590px;margin:auto;border-inline:1px solid #e0e7e3}header{padding:16px 22px;border-bottom:1px solid #e0e7e3;font-size:20px;font-weight:700}article{padding:22px;border-bottom:1px solid #e0e7e3}a{color:inherit;text-decoration:none}[data-testid="User-Name"]{font-weight:650;display:flex;gap:12px;align-items:center}[data-testid="User-Name"] time{font-size:12px;color:#64786c;font-weight:400}p{margin:12px 0 16px}.media{position:relative;height:200px;overflow:hidden;border-radius:14px;background:#dcebe4}[data-testid="tweetPhoto"]{position:absolute;inset:0;overflow:hidden}[data-testid="tweetPhoto"] img,video{width:100%;height:100%;object-fit:cover}.image-bg{position:absolute;inset:0;background:center/cover url('/media/landscape.svg')}blockquote{margin:16px 0 0;padding:16px;border:1px solid #dce5df;border-radius:16px}.avatar{width:30px;height:30px;border-radius:50%;vertical-align:middle}.badge{position:absolute;bottom:10px;left:12px;padding:2px 7px;background:#fff;color:#17392a;border-radius:4px}.actions{font-size:12px;color:#64786c;margin-top:14px}
+@media(prefers-color-scheme:dark){body{background:#101a15;color:#e9f4ed}main,article,header,blockquote{border-color:#304036}}
+</style>
+</head>
+<body><main><header>Home</header>
+<article data-testid="tweet" id="photo-post">
+<div data-testid="User-Name"><img class="avatar" src="/profile_images/alice.svg" alt="Alice"><a href="/alice">Alice · @alice</a><a href="/alice/status/101"><time>2m</time></a></div>
+<p>A little room to think. A photo from this morning's walk.</p>
+<a class="photo-link" href="/alice/status/101/photo/1"><div class="media"><div data-testid="tweetPhoto"><div class="image-bg"></div><img src="/media/landscape.svg" alt="A green landscape"></div></div></a>
+<div class="actions">Reply &nbsp; Repost &nbsp; Like &nbsp; Share</div>
+</article>
+<article data-testid="tweet" id="video-post">
+<div data-testid="User-Name"><a href="/bob">Bob · @bob</a><a href="/bob/status/102"><time>8m</time></a></div>
+<p>A video from the studio.</p>
+<div class="media" data-testid="videoComponent"><div data-testid="videoPlayer"><video loop muted autoplay src="/clip.webm" poster="/ext_tw_video_thumb/blue.svg"></video></div></div>
+</article>
+<article data-testid="tweet" id="gif-post">
+<div data-testid="User-Name"><a href="/carol">Carol · @carol</a><a href="/carol/status/103"><time>12m</time></a></div>
+<p>One more loop.</p>
+<div class="media" data-testid="videoComponent"><div data-testid="videoPlayer"><video loop muted autoplay src="/clip.webm" poster="/tweet_video_thumb/loop.svg"></video><span class="badge">GIF</span></div></div>
+</article>
+<article data-testid="tweet" id="quote-post">
+<div data-testid="User-Name"><a href="/alice">Alice · @alice</a><a href="/alice/status/104"><time>15m</time></a></div>
+<p>A quote with its own author.</p>
+<blockquote role="link" tabindex="0"><div data-testid="User-Name"><a href="/dave">Dave · @dave</a><a href="/dave/status/105"><time>1h</time></a></div>
+<div class="media"><div data-testid="tweetPhoto"><img src="/media/quote.svg" alt="A quoted photo"></div></div></blockquote>
+</article>
+<article data-testid="tweet" id="card-post">
+<div data-testid="User-Name"><a href="/erin">Erin · @erin</a><a href="/erin/status/106"><time>20m</time></a></div>
+<p>An article worth reading.</p><div data-testid="card.wrapper"><a href="https://example.org/article"><div class="media"><img src="/card_img/preview.svg" alt="Article preview"></div><span>Keep this link and its headline readable</span></a></div>
+</article>
+</main></body></html>

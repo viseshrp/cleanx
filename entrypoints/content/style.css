@@ -1,0 +1,8 @@
+[data-cleanx-root] { isolation: isolate !important; }
+[data-cleanx-position] { position: relative !important; }
+[data-cleanx-state="hidden"] > :not(cleanx-placeholder) {
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+[data-cleanx-state="hidden"] { background-image: none !important; }
+cleanx-placeholder { visibility: visible !important; border-radius: inherit; }
