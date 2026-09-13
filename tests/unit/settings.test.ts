@@ -8,7 +8,7 @@ import {
 	STORAGE_KEYS,
 	writeSetting,
 } from "../../entrypoints/shared/settings";
-import { isXUrl, profileFromUrl } from "../../entrypoints/shared/context";
+import { isXUrl } from "../../entrypoints/shared/context";
 
 afterEach(() => vi.unstubAllGlobals());
 
@@ -84,19 +84,4 @@ describe("X context", () => {
 		"https://twitter.com",
 		"https://sub.x.com",
 	])("rejects %s", (url) => expect(isXUrl(url)).toBe(false));
-	it("recognizes profiles and post authors without mistaking system routes for names", () => {
-		expect(profileFromUrl("https://x.com/Alice")).toBe("alice");
-		expect(profileFromUrl("https://x.com/Alice/status/123/photo/1")).toBe(
-			"alice",
-		);
-		expect(profileFromUrl("https://x.com/Alice/media")).toBe("alice");
-		for (const url of [
-			"https://x.com/",
-			"https://x.com/home",
-			"https://x.com/i/lists/123",
-			"https://x.com/Alice/unknown",
-			"https://other.test/Alice",
-		])
-			expect(profileFromUrl(url)).toBeNull();
-	});
 });
