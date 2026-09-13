@@ -147,6 +147,36 @@ describe("media filtering", () => {
 });
 
 describe("X media discovery", () => {
+	it("covers media-search thumbnails while keeping their types and authors separate", () => {
+		const grid = document.createElement("section");
+		grid.innerHTML =
+			'<a href="/alice/status/991/photo/1"><div><img src="/tweet_video_thumb/a.jpg"></div><span>GIF</span></a><a href="/bob/status/992/photo/1"><div><img src="/ext_tw_video_thumb/b.jpg"></div><span>0:59</span></a><a href="/carol/status/993/photo/1"><div><img src="/media/c.jpg"></div></a>';
+		document.body.append(grid);
+		filter.update(DEFAULT_SETTINGS);
+		const roots = mediaRoots(grid);
+		expect(roots.map((root) => mediaType(root))).toEqual([
+			"gif",
+			"video",
+			"image",
+		]);
+		expect(roots.map((root) => mediaOwner(root).username)).toEqual([
+			"alice",
+			"bob",
+			"carol",
+		]);
+		filter.update({ ...DEFAULT_SETTINGS, gif: false });
+		expect(roots.map((root) => root.dataset.cleanxState)).toEqual([
+			"visible",
+			"hidden",
+			"hidden",
+		]);
+		filter.update({ ...DEFAULT_SETTINGS, whitelist: ["bob"] });
+		expect(roots.map((root) => root.dataset.cleanxState)).toEqual([
+			"hidden",
+			"visible",
+			"hidden",
+		]);
+	});
 	it("uses explicit GIF sources or badges and handles unloaded players", () => {
 		const root = document.createElement("div");
 		for (const source of [

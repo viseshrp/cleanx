@@ -1,7 +1,7 @@
 import { normalizeUsername, type MediaType } from "../shared/settings";
 
 const VIDEO = '[data-testid="videoComponent"], [data-testid="videoPlayer"]';
-const CANDIDATES = `${VIDEO}, [data-testid="tweetPhoto"], [data-testid="card.wrapper"] img, article video`;
+const CANDIDATES = `${VIDEO}, [data-testid="tweetPhoto"], [data-testid="card.wrapper"] img, a[href*="/status/"] img, article video`;
 
 export function mediaRoots(scope: ParentNode): HTMLElement[] {
 	const roots = new Set<HTMLElement>();
@@ -19,7 +19,11 @@ export function mediaRoots(scope: ParentNode): HTMLElement[] {
 			// Card image containers also paint the same image as a CSS background.
 			const src = candidate.getAttribute("src");
 			if (src && !/\/profile_images\/|\/emoji\//.test(src))
-				roots.add(candidate.parentElement ?? candidate);
+				roots.add(
+					candidate.closest<HTMLElement>('[data-testid="tweetPhoto"]') ??
+						candidate.parentElement ??
+						candidate,
+				);
 		} else if (candidate.matches("video")) {
 			if (candidate.parentElement) roots.add(candidate.parentElement);
 		} else if (!candidate.querySelector(VIDEO)) roots.add(candidate);
@@ -41,12 +45,17 @@ export function mediaType(root: HTMLElement): MediaType {
 		return "gif";
 
 	if (
+		assets.some((element) =>
+			/\/(?:ext_tw_video_thumb|amplify_video_thumb)\//i.test(
+				element.getAttribute("src") ?? "",
+			),
+		) ||
 		root.matches(VIDEO) ||
 		root.matches("video") ||
 		root.querySelector("video")
 	) {
 		// Ordinary videos can also loop and be muted. Only explicit GIF markers count.
-		const labels = [...root.querySelectorAll("[aria-label], span")];
+		const labels = [root, ...root.querySelectorAll("[aria-label], span")];
 		if (
 			labels.some((element) =>
 				/^(?:play |pause )?gif$/i.test(

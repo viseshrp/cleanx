@@ -292,3 +292,29 @@ test("disables its action and popup controls away from X", async () => {
 		await background.evaluate((id) => chrome.action.isEnabled(id), tabId),
 	).toBe(false);
 });
+
+test("filters media-search grids by thumbnail type and author", async () => {
+	await page.evaluate(() => {
+		const grid = document.createElement("section");
+		grid.id = "media-grid";
+		grid.innerHTML =
+			'<a href="/gina/status/501/photo/1"><div class="media"><img src="/tweet_video_thumb/grid.svg"></div><span>GIF</span></a><a href="/hank/status/502/photo/1"><div class="media"><img src="/ext_tw_video_thumb/grid.svg"></div><span>0:59</span></a><a href="/ivy/status/503/photo/1"><div class="media"><img src="/media/grid.svg"></div></a>';
+		document.querySelector("main")?.append(grid);
+	});
+	await expect(page.locator("#media-grid cleanx-placeholder")).toHaveCount(3);
+	await popup.locator("#gif").uncheck();
+	await expect(
+		page.locator('#media-grid [data-cleanx-kind="gif"]'),
+	).toHaveAttribute("data-cleanx-state", "visible");
+	await expect(
+		page.locator('#media-grid [data-cleanx-kind="video"]'),
+	).toHaveAttribute("data-cleanx-state", "hidden");
+	await popup.locator("#whitelist").fill("hank");
+	await popup.getByRole("button", { name: "Save usernames" }).click();
+	await expect(
+		page.locator('#media-grid [data-cleanx-kind="video"]'),
+	).toHaveAttribute("data-cleanx-state", "visible");
+	await expect(
+		page.locator('#media-grid [data-cleanx-kind="image"]'),
+	).toHaveAttribute("data-cleanx-state", "hidden");
+});
