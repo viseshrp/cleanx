@@ -181,6 +181,10 @@ describe("X media discovery", () => {
 		root.innerHTML =
 			'<div data-testid="tweetPhoto"><div data-testid="videoPlayer"><video></video></div></div>';
 		expect(mediaRoots(root)).toHaveLength(1);
+		root.innerHTML =
+			'<div data-testid="videoPlayer"><div data-testid="videoComponent"><video></video></div></div>';
+		expect(mediaRoots(root)).toHaveLength(1);
+		expect(mediaRoots(root)[0].dataset.testid).toBe("videoPlayer");
 	});
 	it("identifies authors from photo links or headers, failing closed for unknown quotes", () => {
 		const wrapper = document.createElement("article");

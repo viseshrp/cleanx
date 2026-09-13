@@ -6,12 +6,16 @@ const CANDIDATES = `${VIDEO}, [data-testid="tweetPhoto"], [data-testid="card.wra
 export function mediaRoots(scope: ParentNode): HTMLElement[] {
 	const roots = new Set<HTMLElement>();
 	for (const candidate of scope.querySelectorAll<HTMLElement>(CANDIDATES)) {
-		// X nests videoPlayer in videoComponent and sometimes in tweetPhoto.
-		const video =
-			candidate.closest<HTMLElement>('[data-testid="videoComponent"]') ??
-			candidate.closest<HTMLElement>('[data-testid="videoPlayer"]');
-		if (video) roots.add(video);
-		else if (candidate.matches("img")) {
+		// X uses both nesting orders. One outer player gets one placeholder.
+		let video = candidate.closest<HTMLElement>(VIDEO);
+		if (video) {
+			let outer = video.parentElement?.closest<HTMLElement>(VIDEO);
+			while (outer) {
+				video = outer;
+				outer = video.parentElement?.closest<HTMLElement>(VIDEO);
+			}
+			roots.add(video);
+		} else if (candidate.matches("img")) {
 			// Card image containers also paint the same image as a CSS background.
 			const src = candidate.getAttribute("src");
 			if (src && !/\/profile_images\/|\/emoji\//.test(src))

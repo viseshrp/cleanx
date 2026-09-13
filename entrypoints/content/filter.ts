@@ -34,12 +34,6 @@ export function startFilter() {
 			video.autoplay = false;
 			if (!video.paused) video.pause();
 		}
-		if (item.root instanceof HTMLVideoElement) {
-			if (!item.autoplay.has(item.root))
-				item.autoplay.set(item.root, item.root.autoplay);
-			item.root.autoplay = false;
-			if (!item.root.paused) item.root.pause();
-		}
 	}
 
 	function restorePlayback(item: Item) {
