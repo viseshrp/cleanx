@@ -1,12 +1,58 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CleanX</title>
-  </head>
-  <body>
-    <h1>CleanX</h1>
-    <p>A quieter X.</p>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CleanX</title>
+  <link rel="stylesheet" href="../shared/theme.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="brand">
+    <img src="/icon/icon.svg" width="38" height="38" alt="" />
+    <div><h1>CleanX</h1><p>A quieter X.</p></div>
+    <span id="active-state" class="site-state">Connecting</span>
+  </header>
+  <main>
+    <section class="context" aria-label="Current page">
+      <div class="section-label">ON THIS PAGE <span id="hidden-total">—</span></div>
+      <p id="page-title" class="page-title">Connecting to X…</p>
+      <p id="page-path" class="page-path">x.com</p>
+      <button id="reload" class="inline-button" type="button" hidden>Reload this X tab</button>
+    </section>
+    <fieldset id="media-controls" disabled>
+      <legend>Hide media</legend>
+      <label class="toggle-row" for="video">
+        <span class="type-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="13" height="14" rx="3"/><path d="m16 10 5-3v10l-5-3"/></svg></span>
+        <span class="toggle-copy"><strong>Videos</strong><small id="video-count">Hidden</small></span>
+        <input id="video" type="checkbox" role="switch" aria-label="Hide videos" />
+        <span class="switch" aria-hidden="true"></span>
+      </label>
+      <label class="toggle-row" for="image">
+        <span class="type-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="8" cy="8" r="1.5"/><path d="m4 18 5-5 3 3 4-6 5 7"/></svg></span>
+        <span class="toggle-copy"><strong>Images</strong><small id="image-count">Hidden</small></span>
+        <input id="image" type="checkbox" role="switch" aria-label="Hide images" />
+        <span class="switch" aria-hidden="true"></span>
+      </label>
+      <label class="toggle-row" for="gif">
+        <span class="type-icon gif-icon" aria-hidden="true">GIF</span>
+        <span class="toggle-copy"><strong>GIFs</strong><small id="gif-count">Hidden</small></span>
+        <input id="gif" type="checkbox" role="switch" aria-label="Hide GIFs" />
+        <span class="switch" aria-hidden="true"></span>
+      </label>
+    </fieldset>
+    <form id="whitelist-form">
+      <fieldset id="whitelist-controls" disabled>
+        <div class="whitelist-heading"><label for="whitelist">Always show from</label><span id="whitelist-count">0 people</span></div>
+        <p id="whitelist-help" class="section-help">Usernames separated by commas or new lines.</p>
+        <textarea id="whitelist" rows="2" placeholder="@username, @another" aria-describedby="whitelist-help whitelist-error" spellcheck="false" autocapitalize="none" autocomplete="off" maxlength="10000"></textarea>
+        <p id="whitelist-error" class="error" role="alert" hidden></p>
+        <div class="save-row"><span id="save-state" role="status">Saved on this device</span><button type="submit" id="save-whitelist">Save usernames</button></div>
+      </fieldset>
+    </form>
+    <p id="error" class="error" role="alert" hidden></p>
+  </main>
+  <footer><span class="footer-dot" aria-hidden="true"></span>Applies across X · Click any placeholder to reveal</footer>
+  <script type="module" src="index.ts"></script>
+</body>
 </html>

@@ -1,0 +1,45 @@
+body { width: 360px; padding: 18px; }
+.brand { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+h1 { font-size: 21px; line-height: 1.05; letter-spacing: -.7px; margin: 0 0 4px; }
+.brand p { margin: 0; color: var(--muted); font-size: 12px; }
+.site-state { margin-left: auto; background: var(--surface); border: 1px solid var(--line); color: var(--muted); padding: 4px 8px; border-radius: 20px; font-size: 10px; font-weight: 650; white-space: nowrap; }
+.site-state[data-active="true"] { color: var(--accent); }
+.context { padding: 12px 14px; border: 1px solid var(--line); border-radius: 12px; margin-bottom: 16px; background: var(--surface); }
+.section-label { font-size: 9px; font-weight: 750; letter-spacing: 1.15px; color: var(--muted); display: flex; justify-content: space-between; }
+#hidden-total { letter-spacing: 0; font-weight: 600; }
+.page-title { margin: 9px 0 3px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px; font-weight: 600; }
+.page-path { margin: 0; color: var(--muted); font-size: 11px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+fieldset { padding: 0; margin: 0; min-width: 0; border: 0; }
+legend, .whitelist-heading label { font-size: 13px; font-weight: 700; padding: 0; }
+.section-help { margin: 5px 0 8px; color: var(--muted); font-size: 11px; line-height: 1.5; }
+.toggle-row { display: flex; gap: 12px; align-items: center; padding: 8px 0; cursor: pointer; position: relative; }
+.toggle-row + .toggle-row { border-top: 1px solid var(--line); }
+.type-icon { background: var(--surface); border: 1px solid var(--line); display: grid; place-items: center; width: 33px; height: 33px; border-radius: 9px; color: var(--muted); }
+.type-icon svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.gif-icon { font-size: 10px; font-weight: 750; letter-spacing: -.3px; }
+.toggle-copy { display: grid; gap: 3px; }
+.toggle-copy strong { font-weight: 600; font-size: 13px; }
+.toggle-copy small { color: var(--muted); font-size: 10px; }
+.toggle-row input { position: absolute; right: 0; width: 38px; height: 22px; margin: 0; opacity: 0; }
+.switch { margin-left: auto; width: 38px; height: 22px; border: 1px solid var(--line); border-radius: 20px; background: var(--line); padding: 3px; transition: background .15s; }
+.switch::after { content: ""; display: block; height: 14px; width: 14px; background: var(--background); border-radius: 50%; box-shadow: 0 1px 2px #0002; transition: transform .15s; }
+input:checked + .switch { background: var(--accent); border-color: var(--accent); }
+input:checked + .switch::after { transform: translateX(16px); background: var(--on-accent); }
+input:focus-visible + .switch { outline: 2px solid var(--focus); outline-offset: 3px; }
+fieldset:disabled { opacity: .55; }
+#whitelist-form { border-top: 1px solid var(--line); padding-top: 14px; margin-top: 8px; }
+.whitelist-heading { display: flex; align-items: baseline; justify-content: space-between; }
+#whitelist-count { color: var(--muted); font-size: 10px; }
+textarea { width: 100%; resize: none; padding: 8px 11px; border: 1px solid var(--line); border-radius: 8px; background: var(--input); color: var(--text); font-size: 12px; line-height: 1.6; }
+textarea::placeholder { color: var(--muted); opacity: .75; }
+.save-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 8px; }
+#save-state { font-size: 10px; color: var(--muted); }
+#save-whitelist { padding: 6px 10px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); color: var(--text); font-size: 10px; font-weight: 600; }
+#save-whitelist:hover { border-color: var(--accent); }
+.error { color: var(--error); font-size: 11px; line-height: 1.5; margin: 7px 0; overflow-wrap: anywhere; }
+.inline-button { padding: 0; margin-top: 9px; border: 0; background: transparent; color: var(--accent); font-size: 11px; text-decoration: underline; }
+footer { display: flex; align-items: center; gap: 6px; margin-top: 12px; font-size: 9px; color: var(--muted); white-space: nowrap; }
+.footer-dot { width: 4px; height: 4px; flex-shrink: 0; border-radius: 50%; background: var(--accent); }
+@media (prefers-reduced-motion: reduce) { *, *::after { transition: none !important; } }
+
+legend { margin-bottom: 6px; }
