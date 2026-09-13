@@ -43,6 +43,10 @@ jobs:
           echo "Using release version: ${VERSION}"
 
       - run: pnpm install --frozen-lockfile
+      - run: pnpm quality
+      - run: pnpm test
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm test:e2e
       - name: Build zip
         run: pnpm package
 
@@ -90,4 +94,3 @@ jobs:
             --clobber
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-

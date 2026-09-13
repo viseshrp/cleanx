@@ -15,6 +15,8 @@ permissions:
 jobs:
   draft-release:
     runs-on: ubuntu-latest
+    env:
+      RELEASE_TAG: ${{ github.ref_name }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -29,13 +31,13 @@ jobs:
 
       - name: Validate release tag format
         run: |
-          VERSION="$(node scripts/version-from-tag.mjs "${{ github.ref_name }}")"
+          VERSION="$(node scripts/version-from-tag.mjs "${RELEASE_TAG}")"
           echo "Validated release version: ${VERSION}"
 
       - name: Check for existing release
         run: |
-          if gh release view "${{ github.ref_name }}" > /dev/null 2>&1; then
-            echo "Release for tag '${{ github.ref_name }}' already exists."
+          if gh release view "${RELEASE_TAG}" > /dev/null 2>&1; then
+            echo "Release for tag '${RELEASE_TAG}' already exists."
             exit 1
           fi
         env:
@@ -43,8 +45,8 @@ jobs:
 
       - name: Create draft GitHub release
         run: |
-          gh release create "${{ github.ref_name }}" \
-            --title "Release ${{ github.ref_name }}" \
+          gh release create "${RELEASE_TAG}" \
+            --title "Release ${RELEASE_TAG}" \
             --generate-notes \
             --draft
         env:
